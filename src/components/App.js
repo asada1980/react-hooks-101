@@ -19,6 +19,16 @@ const App = () => {
     setBody('')
   }
 
+  const deleteAllEvents = e => {
+    e.preventDefault()
+    if (window.confirm('全てのイベントを削除してもよろしいですか？')) { 
+      dispatch({type: 'DELETE_ALL_EVENTS'})
+    }
+  }
+
+  const isAddButtonDisabled = title === '' || body === ''
+  const isDeleteAllDisabled = state.length === 0
+
   return (
     <div className="container-fluid">
       <h4>イベント作成フォーム</h4>
@@ -32,8 +42,8 @@ const App = () => {
           <textarea className="form-control" id="formEventBody" onChange={e => setBody(e.target.value)} value={body}/>
         </div>
 
-        <button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>
-        <button className="btn btn-danger">全てのイベントを削除する</button>
+        <button className="btn btn-primary" onClick={addEvent} disabled={isAddButtonDisabled}>イベントを作成する</button>
+        <button className="btn btn-danger" onClick={deleteAllEvents} disabled={isDeleteAllDisabled}>全てのイベントを削除する</button>
       </form>
 
       <h4>イベント一覧</h4>
@@ -47,7 +57,7 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-          { state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch}/>))}
+          {state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch}/>))}
         </tbody>
       </table>
 
