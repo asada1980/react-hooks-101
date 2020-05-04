@@ -24,7 +24,7 @@ const EventForm = () => {
     }
   
     const isAddButtonDisabled = title === '' || body === ''
-    const isDeleteAllDisabled = state.length === 0
+    const isDeleteAllDisabled = state.events.length === 0
   
     return (
         <>
